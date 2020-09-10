@@ -6,7 +6,7 @@ import outcome from '../../assets/outcome.svg';
 import total from '../../assets/total.svg';
 
 import api from '../../services/api';
-
+import formatValue from '../../utils/formatValue';
 import Header from '../../components/Header';
 
 import { Container, CardContainer, Card, TableContainer } from './styles';
@@ -46,7 +46,7 @@ const Dashboard: React.FC = () => {
       const transformedTransaction = response.data.transactions.map(transaction=>({
         ...transaction,
          formattedDate: format(new Date(transaction.created_at), "dd/MM/yyyy", { locale: pt }),
-         formattedValue: Number(transaction.value).toLocaleString("pt-BR", {currency:"BRL", style:"currency", currencyDisplay:"symbol", minimumFractionDigits:2}),
+         formattedValue: formatValue(transaction.value)
         }))
 
       setTransactions(transformedTransaction)
@@ -54,9 +54,9 @@ const Dashboard: React.FC = () => {
       const {income, outcome, total} = response.data.balance;
 
       setBalance({
-        income: Number(income).toLocaleString("pt-BR", {currency:"BRL", style:"currency", currencyDisplay:"symbol", minimumFractionDigits:2}),
-        total: Number(total).toLocaleString("pt-BR", {currency:"BRL", style:"currency", currencyDisplay:"symbol", minimumFractionDigits:2}),
-        outcome: Number(outcome).toLocaleString("pt-BR", {currency:"BRL", style:"currency", currencyDisplay:"symbol", minimumFractionDigits:2})
+        income: formatValue(Number(income)),
+        total: formatValue(Number(total)),
+        outcome: formatValue(Number(outcome))
 
       });
     }

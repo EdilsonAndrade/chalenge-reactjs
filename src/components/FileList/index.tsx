@@ -15,7 +15,6 @@ const FileList: React.FC<FileListProps> = ({ files }: FileListProps) => {
   return (
     <Container>
       {files.map((uploadedFile) => {
- console.log('teste')
         return (<li key={uploadedFile.name}>
           <FileInfo>
             <div>
